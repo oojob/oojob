@@ -1,7 +1,7 @@
-
+@import '../../../_common';
 .job-content{
-	padding: 24px;
-	min-height: 100%;
+	// padding: 24px;
+	// min-height: 100%;
 	.header{
 		display: flex; 
 		flex-direction: row;
@@ -14,12 +14,14 @@
 		}
 	}
 	.job-list {
-		overflow: auto;
-		padding-right: 8px;
-		overflow-x: hidden;
-		overflow-y: scroll;
+		.scroll();
+		// padding: 1rem 0;
+		// overflow: auto;
+		// padding-right: 8px;
+		// overflow-x: hidden;
+		// overflow-y: scroll;
 		// height: calc(100% - 33px);
-		height: 600px;
+		// height: 600px;
 	}
 }
 

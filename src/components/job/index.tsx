@@ -1,4 +1,4 @@
-import { Avatar, Card, Col, Row, Tag, Typography } from 'antd'
+import { Card, Col, Row, Tag, Typography } from 'antd'
 
 import { HeartFilled } from '@ant-design/icons'
 import React from 'react'
