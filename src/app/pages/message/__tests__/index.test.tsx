@@ -13,11 +13,11 @@ import Message from 'app/pages/message'
 import React from 'react'
 import { render } from '@testing-library/react'
 
-test("message page render's properly", async () => {
-  const { asFragment } = render(<Message />)
+// test("message page render's properly", async () => {
+//   const { asFragment } = render(<Message />)
 
-  expect(asFragment()).toMatchSnapshot()
-})
+//   expect(asFragment()).toMatchSnapshot()
+// })
 
 test("render's message list card", async () => {
   const { getByTestId, container } = render(<Message />)
