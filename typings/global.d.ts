@@ -21,6 +21,12 @@ declare module '*.module.less' {
 	export default classes
 }
 
+declare module '*.wasm' {
+	const content: any
+
+	export default content
+}
+
 declare module '*.less' {
 	interface IClassNames {
 		[className: string]: string
