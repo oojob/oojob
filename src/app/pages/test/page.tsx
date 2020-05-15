@@ -2,12 +2,14 @@
 import React, { Component } from "react"
 
 import UserProfile from "components/cards/user-profile";
-import wasm from './js_plumbing.wasm'
+import _factorial from './factorial.wasm'
 
 class Canvas extends Component<any, any> {
 
-	componentDidMount() {
-		this.loadWasm()
+	componentDidMount = async () => {
+		const factorial = await _factorial()
+		console.log(factorial)
+
 		const _canvas = this.refs.canvas as HTMLCanvasElement
 		const canvas = _canvas.getContext('2d')
 		if (canvas) {
@@ -25,15 +27,6 @@ class Canvas extends Component<any, any> {
 			}
 		}
 	}
-
-	loadWasm = async () => {
-		try {
-			const wasm = await import("./js_plumbing.wasm")
-			this.setState({ wasm });
-		} catch (err) {
-			console.error(`Unexpected error in loadWasm. [Message: ${err.message}]`);
-		}
-	};
 
 	mandelIter(x, y, maxIter) {
 		let r = x;
@@ -54,7 +47,6 @@ class Canvas extends Component<any, any> {
 	}
 
 	render() {
-		console.log(this.state)
 		return (
 			<>
 				<UserProfile />

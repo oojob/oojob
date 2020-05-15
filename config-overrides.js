@@ -44,7 +44,6 @@ module.exports = (config, env) => {
 	// wasn configuration
 	const wasmExtensionRegExp = /\.wasm$/
 	_config.resolve.extensions.push('.wasm')
-	console.log(config.module.rules)
 
   _config.module.rules.forEach(rule => {
     (rule.oneOf || []).forEach(oneOf => {

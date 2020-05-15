@@ -22,7 +22,7 @@ declare module '*.module.less' {
 }
 
 declare module '*.wasm' {
-	const content: any
+	const content: (value?: any) => Promise<WebAssembly.Instance>
 
 	export default content
 }
