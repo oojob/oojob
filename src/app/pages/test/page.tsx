@@ -49,7 +49,7 @@ class Canvas extends Component<any, any> {
 	render() {
 		return (
 			<>
-				<UserProfile />
+				<UserProfile candidateName="name" candidateScore={50} companyName="dododuck" />
 				<canvas ref="canvas" width={500} height={500} />
 			</>
 		)
