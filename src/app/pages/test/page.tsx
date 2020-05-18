@@ -49,7 +49,7 @@ class Canvas extends Component<any, any> {
 	render() {
 		return (
 			<>
-				<UserProfile candidateName="name" candidateScore={50} companyName="dododuck" />
+				<UserProfile candidateName="name" candidateScore={50} companyName="dododuck" candidateImage="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
 				<canvas ref="canvas" width={500} height={500} />
 			</>
 		)
