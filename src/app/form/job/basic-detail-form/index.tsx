@@ -46,7 +46,7 @@ const BasicDetailForm: React.FC<IBasicDetailFormProps> = ({ next }) => {
 			const values = JSON.parse(ls)
 			form.setFieldsValue({ ...values })
 		}
-	}, [])
+	}, [form])
 
 	const onFinish = (e) => {
 		// onSubmit(e)

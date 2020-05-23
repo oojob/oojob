@@ -14,7 +14,6 @@ interface IExperienceCardProps {
 	location: string
 	startDate: string
 	endDate: string
-
 }
 
 const ExperienceCard: React.FC<IExperienceCardProps> = ({

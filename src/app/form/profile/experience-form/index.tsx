@@ -25,7 +25,7 @@ const ExperienceForm: React.FC<IExperienceFormProps> = ({ values, onSubmit, isEd
 
 	useEffect(() => {
 		form.setFieldsValue({ ...values })
-	}, [values])
+	}, [form, values])
 
 	const onFinish = (e) => {
 		/* eslint-disable no-console */
