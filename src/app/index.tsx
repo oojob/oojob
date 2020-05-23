@@ -14,8 +14,9 @@ import { Col, Layout, Row } from 'antd'
 import AppBody from 'app/_body'
 import AppNavigation from 'app/_header'
 import Contexts from 'app/contexts'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from 'app/style.module.less'
+import { useToggleMenuContext } from 'app/contexts/toggle-secondary-menu'
 
 const AppLayout: React.FC = ({ children }) => (
 	<Contexts>
@@ -25,19 +26,25 @@ const AppLayout: React.FC = ({ children }) => (
 	</Contexts>
 )
 
-const App: React.FC = () => (
-	<AppLayout>
-		<Row>
-			<Layout hasSider={true}>
-				<Col className={styles.mainMenu} span={6} xs={24} sm={12} md={10} lg={8} xl={6}>
-					<AppNavigation />
-				</Col>
-				<Col span={18}>
-					<AppBody />
-				</Col>
-			</Layout>
-		</Row>
-	</AppLayout>
-)
+const App: React.FC = () => {
+	const { navigationSpan, contentSpan } = useToggleMenuContext()
+
+	console.log('values', navigationSpan, contentSpan)
+
+	return (
+		<AppLayout>
+			<Row>
+				<Layout hasSider={true}>
+					<Col className={styles.mainMenu} span={navigationSpan}>
+						<AppNavigation />
+					</Col>
+					<Col span={contentSpan}>
+						<AppBody />
+					</Col>
+				</Layout>
+			</Row>
+		</AppLayout>
+	)
+}
 
 export default App

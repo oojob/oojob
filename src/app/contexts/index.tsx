@@ -10,11 +10,14 @@
 
 import React from 'react'
 import { ResponsiveProvider } from 'app/contexts/responsive'
+import { ToggleMenuProvider } from 'app/contexts/toggle-secondary-menu'
 import { withRouter } from 'react-router-dom'
 
 const ContextsBase: React.FC = ({ children }) => (
 	<>
-		<ResponsiveProvider>{children}</ResponsiveProvider>
+		<ToggleMenuProvider>
+			<ResponsiveProvider>{children}</ResponsiveProvider>
+		</ToggleMenuProvider>
 	</>
 )
 

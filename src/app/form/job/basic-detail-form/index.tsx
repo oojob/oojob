@@ -1,24 +1,28 @@
 import { Button, Checkbox, Col, Form, Input, Row, Select, Upload } from 'antd'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Range from 'components/range'
 import SalaryInput from 'components/SalaryInput'
 import { UploadOutlined } from '@ant-design/icons'
+import style from '../style.module.less'
 
 const { Option } = Select
 const { Search } = Input
 
-interface IFormProps {
-	onSubmit: (values: any) => void
+interface IBasicDetailFormProps {
+	// onSubmit: (values: any) => void
+	next: () => void
 }
 
-const JobForm: React.FC<IFormProps> = ({ onSubmit }) => {
+const BasicDetailForm: React.FC<IBasicDetailFormProps> = ({ next }) => {
+	const [form] = Form.useForm()
+
 	const checkSalary = (rule, salary) => {
 		if (salary.value > 0) {
 			return Promise.resolve()
 		}
 
-		return Promise.reject('Price must be greater than zero!')
+		return Promise.reject('Salary must be greater than zero!')
 	}
 
 	const validateRange = (rule, value) => {
@@ -35,10 +39,27 @@ const JobForm: React.FC<IFormProps> = ({ onSubmit }) => {
 		return Promise.resolve()
 	}
 
+	useEffect(() => {
+		// console.log(localStorage.getItem('basic-detail'))
+		const ls = localStorage.getItem('basic-detail')
+		if (ls !== null) {
+			const values = JSON.parse(ls)
+			form.setFieldsValue({ ...values })
+		}
+	}, [])
+
+	const onFinish = (e) => {
+		// onSubmit(e)
+		localStorage.setItem('basic-detail', JSON.stringify(e))
+		next()
+	}
+
 	return (
 		<Form
-			name="job"
-			onFinish={onSubmit}
+			className={style.form}
+			name="basic-detail-form"
+			onFinish={onFinish}
+			form={form}
 			initialValues={{
 				sallary_max: {
 					value: 0,
@@ -49,14 +70,8 @@ const JobForm: React.FC<IFormProps> = ({ onSubmit }) => {
 					min: 0
 				},
 				status: 'ACTIVE',
-				type: 'DEFAULT'
+				employementType: 'FULL'
 			}}>
-			<Form.Item name="name">
-				<Input placeholder="Job Name" />
-			</Form.Item>
-			<Form.Item name="desc">
-				<Input.TextArea rows={4} placeholder="Enter Description" />
-			</Form.Item>
 			<Form.Item name="category">
 				<Select mode="tags" style={{ width: '100%' }} placeholder="Enter Categories">
 					{[]}
@@ -67,6 +82,11 @@ const JobForm: React.FC<IFormProps> = ({ onSubmit }) => {
 					{[]}
 				</Select>
 			</Form.Item>
+			<Form.Item name="qualification">
+				<Select mode="tags" style={{ width: '100%' }} placeholder="Enter Qualification">
+					{[]}
+				</Select>
+			</Form.Item>
 			<Row>
 				<Col span={11}>
 					<Form.Item name="sallary" label="Salary Range" rules={[{ validator: validateRange }]}>
@@ -74,27 +94,10 @@ const JobForm: React.FC<IFormProps> = ({ onSubmit }) => {
 					</Form.Item>
 				</Col>
 				<Col span={11} offset={2}>
-					<Form.Item name="type" label="Job Type" style={{ padding: '0 2px' }}>
+					<Form.Item name="employementType" label="Employment Type" style={{ padding: '0 2px' }}>
 						<Select style={{ width: '100%' }}>
-							<Option value="DEFAULT">Default</Option>
-							<Option value="FEATURED">Featured</Option>
-							<Option value="PREMIUM">Premium</Option>
-						</Select>
-					</Form.Item>
-				</Col>
-			</Row>
-			<Row>
-				<Col span={11}>
-					<Form.Item name="sallary_max" label="Salary" rules={[{ validator: checkSalary }]}>
-						<SalaryInput />
-					</Form.Item>
-				</Col>
-				<Col span={11} offset={2}>
-					<Form.Item name="status" label="Status">
-						<Select style={{ width: '100%' }}>
-							<Option value="ACTIVE">Active</Option>
-							<Option value="HOLD">Hold</Option>
-							<Option value="EXPIRED">Expired</Option>
+							<Option value="FULL">Full Time</Option>
+							<Option value="PART">Part Time</Option>
 						</Select>
 					</Form.Item>
 				</Col>
@@ -102,21 +105,14 @@ const JobForm: React.FC<IFormProps> = ({ onSubmit }) => {
 			<Form.Item name="location">
 				<Search placeholder="company Location. ex: Bangalore" loading />
 			</Form.Item>
-			<Form.Item name="attachment" label="Attachments">
-				<Upload>
-					<Button>
-						<UploadOutlined /> Click to Upload
-					</Button>
-				</Upload>
-			</Form.Item>
 
 			<Form.Item>
-				<Button type="primary" htmlType="submit">
-					Create
+				<Button type="primary" htmlType="submit" block>
+					Save and Continue
 				</Button>
 			</Form.Item>
 		</Form>
 	)
 }
 
-export default JobForm
+export default BasicDetailForm

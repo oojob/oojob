@@ -14,21 +14,24 @@
 	}
 
 	.secondary {
-		padding: 0.5rem 1rem;
-		height: 100%;
-		width: 100%;
-		.menu-link {
-			font-size: 20px !important;
-			.menu-item {
-				&:hover {
-					cursor: pointer;
-					background: rgb(47, 69, 102) !important;
+		.tob-bar {
+			padding: 10px 0;
+			display: flex;
+			justify-content: space-between;
+		}
+		.menu {
+			.menu-link {
+				font-size: 2rem !important;
+				.menu-item {
+					&:hover {
+						cursor: pointer;
+						background: rgb(188, 207, 236) !important;
+					}
+					.menu-icon,
+					.menu-name {
+						font-size: 20px !important;
+					}
 				}
-				.menu-icon,
-				.menu-name {
-					font-size: 20px !important;
-				}
-	
 			}
 		}
 	}

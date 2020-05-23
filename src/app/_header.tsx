@@ -16,10 +16,14 @@ import Loading from 'components/loading'
 import { PrimaryRoutes } from 'app/routes'
 import React from 'react'
 import styles from 'app/style.module.less'
+import { useToggleMenuContext } from 'app/contexts/toggle-secondary-menu'
 
 const { Sider } = Layout
 
-const AuthenticatedAppNavigation: React.FC = () => {
+const AuthenticatedAppNavigation: React.FC<{ primarySpan: number | undefined; secondarySpan: number | undefined }> = ({
+	primarySpan,
+	secondarySpan
+}) => {
 	const { user } = {
 		user: { picture: 'http://dummy.duck', email: 'dodo@duck', name: 'dummy user' }
 	}
@@ -28,10 +32,10 @@ const AuthenticatedAppNavigation: React.FC = () => {
 		<Sider width="100%" className={styles.navigation} collapsedWidth="0" breakpoint="lg">
 			<Row>
 				<Navigation>
-					<Col span={6} className={styles.menu}>
+					<Col span={primarySpan} className={styles.menu}>
 						<Primary user={user} isAuthenticated={false} />
 					</Col>
-					<Col span={18}>
+					<Col span={secondarySpan}>
 						<PrimaryRoutes />
 					</Col>
 				</Navigation>
@@ -40,16 +44,20 @@ const AuthenticatedAppNavigation: React.FC = () => {
 	)
 }
 
-const UnauthenticatedAppNavigation: React.FC<{ loading: boolean }> = ({ loading }) => (
+const UnauthenticatedAppNavigation: React.FC<{
+	loading: boolean
+	primarySpan: number | undefined
+	secondarySpan: number | undefined
+}> = ({ loading, primarySpan, secondarySpan }) => (
 	<Sider width="100%" className={styles.navigation} collapsedWidth="0" breakpoint="lg">
 		<Row>
 			<Navigation>
-				<Col span={6} className={styles.menu}>
+				<Col span={primarySpan} className={styles.menu}>
 					<Loading loading={loading}>
 						<Primary user={null} isAuthenticated={true} />
 					</Loading>
 				</Col>
-				<Col span={18}>
+				<Col span={secondarySpan}>
 					<Loading loading={loading}>
 						<PrimaryRoutes />
 					</Loading>
@@ -61,12 +69,19 @@ const UnauthenticatedAppNavigation: React.FC<{ loading: boolean }> = ({ loading 
 
 const AppNavigation: React.FC = () => {
 	const { isLoading } = { isLoading: false }
+	const { primarySpan, secondarySpan } = useToggleMenuContext()
 
 	if (isLoading) {
-		return <UnauthenticatedAppNavigation loading={Boolean(isLoading)} />
+		return (
+			<UnauthenticatedAppNavigation
+				loading={Boolean(isLoading)}
+				primarySpan={primarySpan}
+				secondarySpan={secondarySpan}
+			/>
+		)
 	}
 
-	return <AuthenticatedAppNavigation />
+	return <AuthenticatedAppNavigation primarySpan={primarySpan} secondarySpan={secondarySpan} />
 }
 
 export default AppNavigation

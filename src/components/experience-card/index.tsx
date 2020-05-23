@@ -6,27 +6,30 @@ import style from './style.module.less'
 const { Title, Paragraph } = Typography
 
 interface IExperienceCardProps {
+	key: string
+	isActive: boolean
 	logo?: string
 	companyName: string
 	role: string
 	location: string
 	startDate: string
 	endDate: string
-	description: string
+
 }
 
 const ExperienceCard: React.FC<IExperienceCardProps> = ({
+	key,
+	isActive,
 	companyName,
 	role,
 	location,
 	startDate,
-	endDate,
-	description
+	endDate
 }) => (
-	<Card className={style['card']}>
+	<Card className={`${style.card} ${isActive ? style.active : ''}`}>
 		<Row className={style['container']}>
 			<Col className={style['avatar']} span={6}>
-				<Avatar size={128} src="https://picsum.photos/200/200" icon={<UserOutlined />} />
+				<Avatar size={96} src="https://picsum.photos/200/200" icon={<UserOutlined />} />
 			</Col>
 			<Col className={style['content']} span={17}>
 				<Row className={style['header']}>
@@ -34,19 +37,21 @@ const ExperienceCard: React.FC<IExperienceCardProps> = ({
 						<Title className={style['role']} level={3}>
 							{role}
 						</Title>
-						<div>
-							<Title className={style['company']} level={4}>
-								{companyName}
-							</Title>
-							<span className={style['location']}>{location}</span>
-						</div>
 					</Col>
-					<Col>
-						{startDate} - {endDate}
-					</Col>
+					<Col></Col>
 				</Row>
-				<Row className={style['description']}>
-					<Paragraph>{description}</Paragraph>
+				<Row>
+					<Title className={style['company']} level={4}>
+						{companyName}
+					</Title>
+				</Row>
+				<Row>
+					<span className={style['interval']}>
+						({startDate} - {endDate}) | 7 months
+					</span>
+				</Row>
+				<Row>
+					<span className={style['location']}>{location}</span>
 				</Row>
 			</Col>
 		</Row>
