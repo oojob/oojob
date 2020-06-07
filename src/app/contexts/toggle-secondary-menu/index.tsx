@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useMemo, useState } from 'react'
-import { Menu } from 'antd'
+import React, { createContext, useContext, useState } from 'react'
 
 interface IToggleMenuContext {
 	navigationSpan: number
@@ -9,13 +8,14 @@ interface IToggleMenuContext {
 	collapse: boolean
 	toggle?: () => void
 }
+
 const ToggleMenuContext = createContext<IToggleMenuContext>({
 	navigationSpan: 6,
 	contentSpan: 18,
 	primarySpan: 6,
 	secondarySpan: 18,
 	collapse: false,
-	toggle: () => {}
+	toggle: () => null
 })
 const ToggleMenu: React.FC = (props) => {
 	const [navigationSpan, setNavigationSpan] = useState<number>(6)
@@ -26,13 +26,11 @@ const ToggleMenu: React.FC = (props) => {
 
 	const toggle = () => {
 		if (collapse) {
-			console.log('values: uncollapse')
 			setNavigationSpan(6)
 			setContentSpan(18)
 			setPrimarySpan(6)
 			setSecondarySpan(18)
 		} else {
-			console.log('values: collapse')
 			setNavigationSpan(2)
 			setContentSpan(22)
 			setPrimarySpan(24)
